@@ -33,8 +33,8 @@ requests = require('requests')
 --Auto Update
 update_state = false
 local dlstatus = require("moonloader").download_status
-local script_vers = 1
-local script_vers_text = "1.00"
+local script_vers = 2
+local script_vers_text = "1.02"
 local update_url = "https://raw.githubusercontent.com/Roomiik/Lua/main/update.ini"
 local update_path = getWorkingDirectory() .. "/update.ini"
 local script_url = "https://raw.githubusercontent.com/Roomiik/Lua/main/atools.luac?raw=true"
@@ -155,7 +155,7 @@ function main()
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
             updateIni = inicfg.load(nil, update_path)
             if tonumber(updateIni.info.vers) > script_vers then
-                sampAddChatMessage("Есть обновление! Версия: " .. updateIni.info.vers_text, -1)
+                sampAddChatMessage("Г…Г±ГІГј Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ! Г‚ГҐГ°Г±ГЁГї: " .. updateIni.info.vers_text, -1)
                 update_state = true
             end
             os.remove(update_path)
@@ -177,13 +177,13 @@ function main()
             activation = false
     end
 
-    while true do -- Бесконечный цыкл.
+    while true do -- ГЃГҐГ±ГЄГ®Г­ГҐГ·Г­Г»Г© Г¶Г»ГЄГ«.
         wait(0)
 
         if update_state then
             downloadUrlToFile(script_url, script_path, function(id, status)
                 if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                    sampAddChatMessage("Скрипт успешно обновлен!", -1)
+                    sampAddChatMessage("Г‘ГЄГ°ГЁГЇГІ ГіГ±ГЇГҐГёГ­Г® Г®ГЎГ­Г®ГўГ«ГҐГ­!", -1)
                     thisScript():reload()
                 end
             end)
@@ -197,15 +197,15 @@ function main()
 
         for k = 0, sampGetMaxPlayerId(false) do
             local pColors = string.format('%06X', bitAnd(0xFFFFFF, sampGetPlayerColor(pId)))
-                renderFontDrawText(text, "Игроки онлайн:", 1269, 10, 0xFFFFFFFF)
+                renderFontDrawText(text, "Г€ГЈГ°Г®ГЄГЁ Г®Г­Г«Г Г©Г­:", 1269, 10, 0xFFFFFFFF)
                 renderFontDrawText(text, "{"..pColors.."}"..sampGetPlayerNickname(k).."[".. k .."](LVL: "..sampGetPlayerScore(k)..")\n", 1269, 25+k*17, 0xFFFFFFFF)
 
             if isKeyJustPressed(VK_F2) then
-                sampAddChatMessage("Вы успешно выдали себе 100 HP", 0xFF0011)
+                sampAddChatMessage("Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГўГ»Г¤Г Г«ГЁ Г±ГҐГЎГҐ 100 HP", 0xFF0011)
                 sampSendChat("/hp "..Myid.." 100")
             end
             if isKeyJustPressed(VK_F3) then
-                sampAddChatMessage("Вы успешно поченили авто", 0xFF0011)
+                sampAddChatMessage("Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЇГ®Г·ГҐГ­ГЁГ«ГЁ Г ГўГІГ®", 0xFF0011)
                 sampSendChat("/fixcar "..Myid)
             end
         end
@@ -227,7 +227,7 @@ function bitAnd(a, b)
 end
 
 function sampev.onPlayerJoin(id, clist, isNPC, nick)
-    mod.addNotify("Игрок "..nick.."["..id.."] зашёл в игру", 3) 
+    mod.addNotify("Г€ГЈГ°Г®ГЄ "..nick.."["..id.."] Г§Г ГёВёГ« Гў ГЁГЈГ°Гі", 3) 
 end
 
 function sampev.onPlayerQuit(id, reason)
@@ -235,8 +235,8 @@ function sampev.onPlayerQuit(id, reason)
     if reasons == 0 then reas = "/q"end
     if reasons == 1 then reas = "Kick/Ban."end
     if reasons == 2 then reas = "TimedOut."end
-    sampAddChatMessage("Игрок "..nicks.."["..id.."] вышел из игры "..reas, 0xC3C3C3)
-    --mod.addNotification("Игрок "..nicks.."["..id.."] вышел из игры "..reas, 3) 
+    sampAddChatMessage("Г€ГЈГ°Г®ГЄ "..nicks.."["..id.."] ГўГ»ГёГҐГ« ГЁГ§ ГЁГЈГ°Г» "..reas, 0xC3C3C3)
+    --mod.addNotification("Г€ГЈГ°Г®ГЄ "..nicks.."["..id.."] ГўГ»ГёГҐГ« ГЁГ§ ГЁГЈГ°Г» "..reas, 3) 
     
 end
 
@@ -251,7 +251,7 @@ end
 function q.onServerMessage(color,text)
     if text:match("^%[A%]%s*(%S+)%[(%d+)%]:%s*/(.+)") then
         local nick, id, texts = text:match("^%[A%]%s*(%S+)%[(%d+)%]:%s*(.+)")
-        mod.addNotify("{0xFF0069}Админ форма от: {FFFFFF}"..nick.."["..id.."]\n {FFFFFF}"..texts, 1, 1, 1, 5, 1) 
+        mod.addNotify("{0xFF0069}ГЂГ¤Г¬ГЁГ­ ГґГ®Г°Г¬Г  Г®ГІ: {FFFFFF}"..nick.."["..id.."]\n {FFFFFF}"..texts, 1, 1, 1, 5, 1) 
     else
     end
     
@@ -260,7 +260,7 @@ end
 function cmd_color(arg) 
     local pColors = string.format('%06X', bitAnd(0xFFFFFF, sampGetPlayerColor(arg)))
     --sampAddChatMessage(pColors, -1)
-    sampShowDialog(1317, "HEX Цвета организаций.", "Название организации.\tЦвет\n{CCFF00}Правительство\t0xCCFF00\n{996633}МО\t0x996633\n{FF6666}МЗ\t0xFF6666\n{FF6600}ТРК\t0xFF6600\n{0000FF}ДПС\t0x0000FF\n{0000FF}ППС\t0x0000FF\n{0000FF}ФСБ\t0x0000FF\n{009900}Центральное ОПГ\t0x009900\n{6666FF}ОПГ Гопота\t0x6666FF\n{FFCD00}Западное ОПГ\t0xFFCD00", "Выбрать", "Закрыть", 4)
+    sampShowDialog(1317, "HEX Г–ГўГҐГІГ  Г®Г°ГЈГ Г­ГЁГ§Г Г¶ГЁГ©.", "ГЌГ Г§ГўГ Г­ГЁГҐ Г®Г°ГЈГ Г­ГЁГ§Г Г¶ГЁГЁ.\tГ–ГўГҐГІ\n{CCFF00}ГЏГ°Г ГўГЁГІГҐГ«ГјГ±ГІГўГ®\t0xCCFF00\n{996633}ГЊГЋ\t0x996633\n{FF6666}ГЊГ‡\t0xFF6666\n{FF6600}Г’ГђГЉ\t0xFF6600\n{0000FF}Г„ГЏГ‘\t0x0000FF\n{0000FF}ГЏГЏГ‘\t0x0000FF\n{0000FF}Г”Г‘ГЃ\t0x0000FF\n{009900}Г–ГҐГ­ГІГ°Г Г«ГјГ­Г®ГҐ ГЋГЏГѓ\t0x009900\n{6666FF}ГЋГЏГѓ ГѓГ®ГЇГ®ГІГ \t0x6666FF\n{FFCD00}Г‡Г ГЇГ Г¤Г­Г®ГҐ ГЋГЏГѓ\t0xFFCD00", "Г‚Г»ГЎГ°Г ГІГј", "Г‡Г ГЄГ°Г»ГІГј", 4)
 end
 
 function imgui.OnDrawFrame()
@@ -268,7 +268,7 @@ function imgui.OnDrawFrame()
     imgui.SetNextWindowPos(imgui.ImVec2((sw / 2), sh / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 
     imgui.Begin("Setting Tools", main_window_state)
-    imgui.Text(u8("Здесь вы сможете настроить Atools"))
+    imgui.Text(u8("Г‡Г¤ГҐГ±Гј ГўГ» Г±Г¬Г®Г¦ГҐГІГҐ Г­Г Г±ГІГ°Г®ГЁГІГј Atools"))
     --imgui.BufferingBar(0.2, imgui.ImVec2(200, 10), false)
     if activation_script then
     if imgui.ToggleButton("Name Tag", toggle_status_nametag) then
@@ -277,14 +277,14 @@ function imgui.OnDrawFrame()
             mainIni.config.NameTag = true
             if inicfg.save(mainIni, directIni) then
                 nameTagOn()
-                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно включили NameTag", 0xFF0033)
+                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГўГЄГ«ГѕГ·ГЁГ«ГЁ NameTag", 0xFF0033)
             end
 
             else
                 mainIni.config.NameTag = false
                 if inicfg.save(mainIni, directIni) then
                     nameTagOff()
-                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно отключили NameTag", 0xFF0033)
+                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® Г®ГІГЄГ«ГѕГ·ГЁГ«ГЁ NameTag", 0xFF0033)
                 end
         end
     end
@@ -293,7 +293,7 @@ function imgui.OnDrawFrame()
     if imgui.IsItemHovered() then
         imgui.BeginTooltip()
         imgui.PushTextWrapPos(450.0)
-        imgui.TextUnformatted(u8("Name Tag - Видимость ника и айди игрока за текстурами и на большой дистанции."))
+        imgui.TextUnformatted(u8("Name Tag - Г‚ГЁГ¤ГЁГ¬Г®Г±ГІГј Г­ГЁГЄГ  ГЁ Г Г©Г¤ГЁ ГЁГЈГ°Г®ГЄГ  Г§Г  ГІГҐГЄГ±ГІГіГ°Г Г¬ГЁ ГЁ Г­Г  ГЎГ®Г«ГјГёГ®Г© Г¤ГЁГ±ГІГ Г­Г¶ГЁГЁ."))
         imgui.PopTextWrapPos()
         imgui.EndTooltip()
     end
@@ -304,14 +304,14 @@ function imgui.OnDrawFrame()
             mainIni.config.Vehicle = true
             if inicfg.save(mainIni, directIni) then
                 activation = true
-                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно включили Vehicle Info ", 0xFF0033)
+                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГўГЄГ«ГѕГ·ГЁГ«ГЁ Vehicle Info ", 0xFF0033)
             end
 
             else
                 mainIni.config.Vehicle = false
                 if inicfg.save(mainIni, directIni) then
                     activation = false
-                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно отключили Vehicle Info ", 0xFF0033)
+                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® Г®ГІГЄГ«ГѕГ·ГЁГ«ГЁ Vehicle Info ", 0xFF0033)
                 end
         end
      end
@@ -320,7 +320,7 @@ function imgui.OnDrawFrame()
     if imgui.IsItemHovered() then
         imgui.BeginTooltip()
         imgui.PushTextWrapPos(450.0)
-        imgui.TextUnformatted(u8("Vehicle Info - Информация о авто в радиусе стрима, показывает ID, Name, HP"))
+        imgui.TextUnformatted(u8("Vehicle Info - Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї Г® Г ГўГІГ® Гў Г°Г Г¤ГЁГіГ±ГҐ Г±ГІГ°ГЁГ¬Г , ГЇГ®ГЄГ Г§Г»ГўГ ГҐГІ ID, Name, HP"))
         imgui.PopTextWrapPos()
         imgui.EndTooltip()
     end
@@ -331,14 +331,14 @@ function imgui.OnDrawFrame()
             mainIni.config.Vehicle = true
             if inicfg.save(mainIni, directIni) then
                 activation = true
-                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно включили Auto Login ", 0xFF0033)
+                sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГўГЄГ«ГѕГ·ГЁГ«ГЁ Auto Login ", 0xFF0033)
             end
 
             else
                 mainIni.config.Vehicle = false
                 if inicfg.save(mainIni, directIni) then
                     activation = false
-                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Вы успешно отключили Auto Login ", 0xFF0033)
+                    sampAddChatMessage("{00ffb3}[A-Tools] {FFFFFF}Г‚Г» ГіГ±ГЇГҐГёГ­Г® Г®ГІГЄГ«ГѕГ·ГЁГ«ГЁ Auto Login ", 0xFF0033)
                 end
         end
      end
@@ -347,13 +347,13 @@ function imgui.OnDrawFrame()
     if imgui.IsItemHovered() then
         imgui.BeginTooltip()
         imgui.PushTextWrapPos(450.0)
-        imgui.TextUnformatted(u8("Vehicle Info - Информация о авто в радиусе стрима, показывает ID, Name, HP"))
+        imgui.TextUnformatted(u8("Vehicle Info - Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї Г® Г ГўГІГ® Гў Г°Г Г¤ГЁГіГ±ГҐ Г±ГІГ°ГЁГ¬Г , ГЇГ®ГЄГ Г§Г»ГўГ ГҐГІ ID, Name, HP"))
         imgui.PopTextWrapPos()
         imgui.EndTooltip()
     end
 
 else
-    imgui.Text(u8("У вас закончилась/не активирован скрипт.\nВаш серийный ключь: "..getserial()))
+    imgui.Text(u8("Г“ ГўГ Г± Г§Г ГЄГ®Г­Г·ГЁГ«Г Г±Гј/Г­ГҐ Г ГЄГІГЁГўГЁГ°Г®ГўГ Г­ Г±ГЄГ°ГЁГЇГІ.\nГ‚Г Гё Г±ГҐГ°ГЁГ©Г­Г»Г© ГЄГ«ГѕГ·Гј: "..getserial()))
 end
 imgui.End()
 end
@@ -365,9 +365,9 @@ end
 
 function nameTagOn()
 	local pStSet = sampGetServerSettingsPtr()
-	NTdist = mem.getfloat(pStSet + 39) -- дальность
-	NTwalls = mem.getint8(pStSet + 47) -- видимость через стены
-	NTshow = mem.getint8(pStSet + 56) -- видимость тегов
+	NTdist = mem.getfloat(pStSet + 39) -- Г¤Г Г«ГјГ­Г®Г±ГІГј
+	NTwalls = mem.getint8(pStSet + 47) -- ГўГЁГ¤ГЁГ¬Г®Г±ГІГј Г·ГҐГ°ГҐГ§ Г±ГІГҐГ­Г»
+	NTshow = mem.getint8(pStSet + 56) -- ГўГЁГ¤ГЁГ¬Г®Г±ГІГј ГІГҐГЈГ®Гў
 	mem.setfloat(pStSet + 39, 1488.0)
 	mem.setint8(pStSet + 47, 0)
 	mem.setint8(pStSet + 56, 1)
@@ -390,24 +390,24 @@ end
 
 function checkKey()
     response = requests.get('http://profile/script.php?code='..getserial())
-    if not response.text:match("<body>(.*)</body>"):find("-1") then -- Если ключ есть в бд
-        if not response.text:match("<body>(.*)</body>"):find("The duration of the key has expired.") then -- Если сервер не ответил что ключ истек.
-            sampAddChatMessage("До окончания лицензии осталось:"..response.text:match("<body>(.*)</body>"), -1) --  Выводим кол-во дней до конца лицензии
-            mod.addNotify("{0xFF0069}Привествую тебя {FFFFFF}\n {FF0069}Admin Tools Успешно {00ff77}работает.", 1, 1, 1, 5, 1) 
-            mod.addNotify("До окончания лицензии осталось:"..response.text:match("<body>(.*)</body>"), 1, 1, 1, 5, 1)
+    if not response.text:match("<body>(.*)</body>"):find("-1") then -- Г…Г±Г«ГЁ ГЄГ«ГѕГ· ГҐГ±ГІГј Гў ГЎГ¤
+        if not response.text:match("<body>(.*)</body>"):find("The duration of the key has expired.") then -- Г…Г±Г«ГЁ Г±ГҐГ°ГўГҐГ° Г­ГҐ Г®ГІГўГҐГІГЁГ« Г·ГІГ® ГЄГ«ГѕГ· ГЁГ±ГІГҐГЄ.
+            sampAddChatMessage("Г„Г® Г®ГЄГ®Г­Г·Г Г­ГЁГї Г«ГЁГ¶ГҐГ­Г§ГЁГЁ Г®Г±ГІГ Г«Г®Г±Гј:"..response.text:match("<body>(.*)</body>"), -1) --  Г‚Г»ГўГ®Г¤ГЁГ¬ ГЄГ®Г«-ГўГ® Г¤Г­ГҐГ© Г¤Г® ГЄГ®Г­Г¶Г  Г«ГЁГ¶ГҐГ­Г§ГЁГЁ
+            mod.addNotify("{0xFF0069}ГЏГ°ГЁГўГҐГ±ГІГўГіГѕ ГІГҐГЎГї {FFFFFF}\n {FF0069}Admin Tools Г“Г±ГЇГҐГёГ­Г® {00ff77}Г°Г ГЎГ®ГІГ ГҐГІ.", 1, 1, 1, 5, 1) 
+            mod.addNotify("Г„Г® Г®ГЄГ®Г­Г·Г Г­ГЁГї Г«ГЁГ¶ГҐГ­Г§ГЁГЁ Г®Г±ГІГ Г«Г®Г±Гј:"..response.text:match("<body>(.*)</body>"), 1, 1, 1, 5, 1)
             activation_script = true
         else
             activation_script = false
-            sampAddChatMessage(response.text:match("Срок действия лицензии истек."), -1)
+            sampAddChatMessage(response.text:match("Г‘Г°Г®ГЄ Г¤ГҐГ©Г±ГІГўГЁГї Г«ГЁГ¶ГҐГ­Г§ГЁГЁ ГЁГ±ГІГҐГЄ."), -1)
         end
     else
         activation_script = false
-        sampAddChatMessage("Ключ не активирован.", -1)
+        sampAddChatMessage("ГЉГ«ГѕГ· Г­ГҐ Г ГЄГІГЁГўГЁГ°Г®ГўГ Г­.", -1)
     end
 end
 
 function q.onShowDialog(dialogId, style, title, button1, button2, text)
-    if title:find("Авторизация") then
+    if title:find("ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГї") then
         sampAddChatMessage(title, -1)
         sampSendDialogResponse(dialogId, 1, _, "123321")
     end
